@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Result Portal</title>
+    <style>
+        body {
+            background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 50px;
+            color: #ffd700;
+            text-shadow: 2px 2px black;
+        }
+        input, button {
+            padding: 10px;
+            font-size: 18px;
+            border-radius: 5px;
+            margin: 5px;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: rgba(0,0,0,0.7);
+        }
+        td, th {
+            border: 1px solid white;
+            padding: 10px;
+        }
+        .quote {
+            margin-top: 30px;
+            font-style: italic;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Student Result Portal</h1>
+
+    <p>Enter Student ID to View Result:</p>
+    <input type="text" id="studentId">
+    <button onclick="showResult()">Check Result</button>
+
+    <div id="result"></div>
+
+    <div class="quote">
+        "Success is the sum of small efforts repeated day in and day out." <br>- Robert Collier
+    </div>
+
+<script>
+    const students = {
+        101: {name: "Ayesha Khan", marks: {Math: 90, Science: 85, English: 88}},
+        102: {name: "Ali Raza", marks: {Math: 78, Science: 82, English: 80}},
+        103: {name: "Zainab Fatima", marks: {Math: 95, Science: 90, English: 92}},
+        104: {name: "Ahmed Ali", marks: {Math: 70, Science: 75, English: 72}},
+        105: {name: "Sara Malik", marks: {Math: 88, Science: 87, English: 90}},
+        106: {name: "Bilal Hassan", marks: {Math: 60, Science: 65, English: 70}},
+        107: {name: "Iqra Javed", marks: {Math: 85, Science: 80, English: 82}},
+        108: {name: "Usman Tariq", marks: {Math: 72, Science: 74, English: 75}},
+        109: {name: "Hira Zafar", marks: {Math: 91, Science: 89, English: 90}},
+        110: {name: "Fahad Qureshi", marks: {Math: 69, Science: 72, English: 70}},
+        111: {name: "Laiba Noor", marks: {Math: 94, Science: 93, English: 95}},
+        112: {name: "Hamza Iqbal", marks: {Math: 68, Science: 66, English: 70}},
+        113: {name: "Maham Butt", marks: {Math: 82, Science: 84, English: 80}},
+        114: {name: "Adeel Saeed", marks: {Math: 75, Science: 78, English: 76}},
+        115: {name: "Maryam Irfan", marks: {Math: 92, Science: 90, English: 94}},
+        116: {name: "Talha Rauf", marks: {Math: 65, Science: 68, English: 70}},
+        117: {name: "Nida Farooq", marks: {Math: 87, Science: 85, English: 88}},
+        118: {name: "Sami Ullah", marks: {Math: 77, Science: 79, English: 80}},
+        119: {name: "Rabia Tariq", marks: {Math: 93, Science: 95, English: 94}},
+        120: {name: "Waleed Khan", marks: {Math: 71, Science: 73, English: 72}}
+    };
+
+    function showResult() {
+        const id = document.getElementById('studentId').value;
+        const student = students[id];
+        const resultDiv = document.getElementById('result');
+
+        if (student) {
+            let table = `<h2>Result of ${student.name}</h2>`;
+            table += `<table><tr><th>Subject</th><th>Marks</th></tr>`;
+            for (let subject in student.marks) {
+                table += `<tr><td>${subject}</td><td>${student.marks[subject]}</td></tr>`;
+            }
+            table += `</table>`;
+            resultDiv.innerHTML = table;
+        } else {
+            resultDiv.innerHTML = "<p style='color: yellow;'>Invalid Student ID!</p>";
+        }
+    }
+</script>
+
+</body>
+</html>
+
+
+---
+
