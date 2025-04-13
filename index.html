@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        main {
+            padding: 2rem;
+            max-width: 600px;
+            margin: auto;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        input, button {
+            padding: 0.5rem;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .results-table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .results-table th, .results-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .results-table th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .no-results {
+            color: red;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Student Results</h1>
+    </header>
+    <main>
+        <form id="search-form">
+            <label for="student-id">Enter Student ID:</label>
+            <input type="text" id="student-id" placeholder="e.g., 101" required>
+            <button type="submit">Search Results</button>
+        </form>
+
+        <div id="results-container"></div>
+    </main>
+    <script>
+        // Mock data for 20 students and their results for 6 subjects
+        const students = [
+            { id: "101", name: "John Doe", results: { Math: 85, English: 90, Science: 78, History: 88, Geography: 92, Art: 80 } },
+            { id: "102", name: "Jane Smith", results: { Math: 88, English: 84, Science: 91, History: 76, Geography: 89, Art: 93 } },
+            { id: "103", name: "Alex Johnson", results: { Math: 92, English: 80, Science: 85, History: 89, Geography: 94, Art: 87 } },
+            { id: "104", name: "Emily Davis", results: { Math: 75, English: 88, Science: 90, History: 85, Geography: 80, Art: 92 } },
+            { id: "105", name: "Michael Brown", results: { Math: 89, English: 86, Science: 82, History: 88, Geography: 90, Art: 84 } },
+            { id: "106", name: "Sophia Wilson", results: { Math: 91, English: 89, Science: 84, History: 87, Geography: 88, Art: 90 } },
+            { id: "107", name: "Daniel Martinez", results: { Math: 83, English: 85, Science: 87, History: 82, Geography: 85, Art: 88 } },
+            { id: "108", name: "Olivia Garcia", results: { Math: 86, English: 92, Science: 88, History: 90, Geography: 91, Art: 89 } },
+            { id: "109", name: "James Rodriguez", results: { Math: 84, English: 81, Science: 79, History: 83, Geography: 82, Art: 86 } },
+            { id: "110", name: "Isabella Perez", results: { Math: 93, English: 94, Science: 95, History: 92, Geography: 91, Art: 94 } },
+            // Add more mock data for students as needed
+        ];
+
+        // Handle form submission
+        document.getElementById("search-form").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent form from submitting
+            const studentId = document.getElementById("student-id").value.trim();
+            const resultsContainer = document.getElementById("results-container");
+
+            // Clear previous results
+            resultsContainer.innerHTML = "";
+
+            // Find the student by ID
+            const student = students.find(s => s.id === studentId);
+
+            if (student) {
+                // Create a table to display the student's results
+                const table = document.createElement("table");
+                table.className = "results-table";
+
+                // Create table header
+                const thead = document.createElement("thead");
+                thead.innerHTML = `
+                    <tr>
+                        <th>Subject</th>
+                        <th>Score</th>
+                    </tr>
+                `;
+                table.appendChild(thead);
+
+                // Create table body
+                const tbody = document.createElement("tbody");
+                for (const [subject, score] of Object.entries(student.results)) {
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+                        <td>${subject}</td>
+                        <td>${score}</td>
+                    `;
+                    tbody.appendChild(row);
+                }
+                table.appendChild(tbody);
+
+                // Add student name and table to the results container
+                const studentName = document.createElement("h2");
+                studentName.textContent = `Results for: ${student.name} (ID: ${student.id})`;
+                resultsContainer.appendChild(studentName);
+                resultsContainer.appendChild(table);
+            } else {
+                // Show "no results found" message
+                const noResults = document.createElement("div");
+                noResults.className = "no-results";
+                noResults.textContent = "No results found for the given Student ID.";
+                resultsContainer.appendChild(noResults);
+            }
+        });
+    </script>
+</body>
+</html>
